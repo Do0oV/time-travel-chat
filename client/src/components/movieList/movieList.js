@@ -1,10 +1,11 @@
 import React from 'react';
 import './movieList.css';
+import MovieListItem from '../movieListItem/movieListItem';
 
-const MovieList = (props) => {
+const MovieList = ({movies}) => {
 
-    return props.movies.map(movie => (
-      <div key={movie.id} movie={movie}>{movie.title}</div>
+    return movies.map(movie => (
+      <MovieListItem key={movie.id} movie={movie}/>
       ));
 }
 
