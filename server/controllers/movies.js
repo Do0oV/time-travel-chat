@@ -10,7 +10,7 @@ exports.searchAPI = async (ctx) => {
     ctx.body = response.data.results;
     ctx.status = 200;
   } catch (e) {
-    console.log(e); // eslint-disable-line no-console
+    console.log(e.message); // eslint-disable-line no-console
     ctx.status = 500;
   }
 };
