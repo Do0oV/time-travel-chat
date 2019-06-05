@@ -1,0 +1,24 @@
+{
+  "name": "time-travel-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Do0oV/time-travel-chat.git"
+  },
+  "author": "Dorothee Viard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Do0oV/time-travel-chat/issues"
+  },
+  "homepage": "https://github.com/Do0oV/time-travel-chat#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0"
+  }
+}
