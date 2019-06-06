@@ -53,9 +53,7 @@ exports.addMovie = async (ctx) => {
 exports.findOne = async (ctx) => {
   try {
     const { id } = ctx.params;
-    console.log(id)
     const res = await Movie.findOne({omdb_id: id});
-    console.log(res)
     ctx.body = res;
     ctx.status = 200;
   } catch (e) {
