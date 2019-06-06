@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useContext , useEffect , useState } from 'react';
 import './movieDetails.css';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const MovieDetails = ({id}) => {
-  console.log(id)
-  //console.log(id)
+import { SearchContext } from '../../containers/App';
+
+const MovieDetails = (props) => {
+
+  const { fetchMovieDetails } = useContext(SearchContext);
+  const [ movie , setMovie ] = useState({});
+  const baseUrl = 'http://localhost:3001';
+
+  const createDocument = async (id) => {
+    await axios.get(`${baseUrl}/create/${props.match.params.id}`);
+    props.history.push(`/play/${id}`)
+  };
+
+  useEffect(() => {
+    fetchMovieDetails(props.match.params.id)
+      .then(res => setMovie(res.data));
+  }, []);
+
+
   return (
-    <div></div>
+    <div>
+      <div>{movie.title}</div>
+      <div onClick={() => createDocument(movie.id)}>
+        PLAY
+      </div>
+    </div>
     );
-}
+};
 
 export default MovieDetails;

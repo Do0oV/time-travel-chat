@@ -1,7 +1,6 @@
 import React from 'react';
 import './movieListItem.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import MovieDetails from '../movieDetails/movieDetails';
+import { Link } from 'react-router-dom';
 
 const MovieListItem = ({movie}) => {
 
@@ -17,7 +16,6 @@ const MovieListItem = ({movie}) => {
       alt="poster"
       />
       <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
-      {/*<div>{movie.title}</div>*/}
       </div>
       </div>
       );
