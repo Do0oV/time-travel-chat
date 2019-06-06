@@ -22,7 +22,7 @@ const PlayMovie = (props) => {
 
   return (
     <div>
-    <MovieTimer runtime={movie.runtime}/>
+    <MovieTimer runtime={movie.runtime} movie={movie}/>
     {console.log(movie)}
     {movie.title}
     </div>
