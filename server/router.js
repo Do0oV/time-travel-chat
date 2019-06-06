@@ -6,7 +6,8 @@ const ctrl = require('./controllers/movies');
 router
   .get('/search/:query', ctrl.searchAPI)
   .get('/details/:id', ctrl.getMovieDetails)
-  .post('/create/:id', ctrl.addMovie)
+  .get('/create/:id', ctrl.addMovie)
+  .get('/movie/:id', ctrl.findOne)
   .put('/comment/:_id', ctrl.addComment);
 
 module.exports = router;

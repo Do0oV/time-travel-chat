@@ -40,10 +40,24 @@ exports.addMovie = async (ctx) => {
       comments: [],
       share_link: null
     });
-    movie.save((err) => {
+    await movie.save((err) => {
       if (err) return handleError(err);
     });
-    ctx.status = 201;
+    ctx.status = 200;
+  } catch (e) {
+    console.log(e); // eslint-disable-line no-console
+    ctx.status = 500;
+  }
+};
+
+exports.findOne = async (ctx) => {
+  try {
+    const { id } = ctx.params;
+    console.log(id)
+    const res = await Movie.findOne({omdb_id: id});
+    console.log(res)
+    ctx.body = res;
+    ctx.status = 200;
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;
