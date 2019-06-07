@@ -1,6 +1,6 @@
 import React from 'react';
-import './movieList.css';
-import MovieListItem from '../movieListItem/movieListItem';
+import './MovieList.css';
+import MovieListItem from '../MovieListItem/MovieListItem';
 
 const MovieList = ({movies}) => {
 

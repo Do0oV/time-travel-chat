@@ -8,6 +8,7 @@
     "moment-duration-format": "^2.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-google-oauth": "^1.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-timer-machine": "^1.0.2"

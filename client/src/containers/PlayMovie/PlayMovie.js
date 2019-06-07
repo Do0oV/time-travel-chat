@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './playMovie.css';
-import MovieTimer from '../movieTimer/movieTimer';
+import './PlayMovie.css';
+import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -10,6 +10,7 @@ const PlayMovie = (props) => {
   const baseUrl = 'http://localhost:3001';
   const [comments, setComments] = useState([]);
   const [display, setDisplay] = useState(true);
+  const { id } = props.match.params;
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
@@ -41,11 +42,11 @@ const PlayMovie = (props) => {
   };
 
   useEffect(() => {
-    fetchFromDb(props.match.params.id)
+    fetchFromDb(id)
       .then(res => {
         setMovie(res.data)
       });
-  },[]);
+  },[id]);
 
   return (
     <div>

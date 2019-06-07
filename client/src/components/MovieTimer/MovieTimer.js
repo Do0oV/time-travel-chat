@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './movieTimer.css';
+import './MovieTimer.css';
 import TimerMachine from 'react-timer-machine';
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
@@ -9,12 +9,12 @@ const MovieTimer = ({runtime , movie, addComment, displayComments, resetComments
 
   const [started , setStarted] = useState(false);
   const [paused , setPaused] = useState(false);
-  const [timeStart , setTimeStart] = useState(59 * 60 * 1000); // change to 0 !
-  const [timeEnd , setTimeEnd] = useState(moment.duration(runtime).asMilliseconds());
+  const [timeStart] = useState(59 * 60 * 1000); // change to 0 !
+  const [timeEnd] = useState(moment.duration(runtime).asMilliseconds());
   const [current, setCurrent] = useState(59 * 60 * 1000);
   const [input, setInput] = useState(false);
-  const [commentTime, setCommentTime] = useState(0);
-  const [user, setUser] = useState('user1');
+  const [setCommentTime] = useState(0);
+  const [user] = useState('user1');
 
   const startPlayer = () => {
     setStarted(!started);
@@ -40,6 +40,7 @@ const MovieTimer = ({runtime , movie, addComment, displayComments, resetComments
       };
       addComment(newComment);
       e.target.msg.value = '';
+      setInput(false)
     }
   };
 
@@ -64,11 +65,7 @@ const MovieTimer = ({runtime , movie, addComment, displayComments, resetComments
       onTick={time => {
           setCurrent(() => moment.duration(time).asMilliseconds())
           movie.comments &&
-          movie.comments.map(comment => {
-            if (comment.time === current) {
-              return displayComments(comment)
-            }
-          });
+          movie.comments.map(comment => comment.time === current && displayComments(comment));
         }
       }
       onPause={time =>
