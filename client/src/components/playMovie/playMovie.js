@@ -2,29 +2,51 @@ import React, { useState, useEffect } from 'react';
 import './playMovie.css';
 import MovieTimer from '../movieTimer/movieTimer';
 import axios from 'axios';
+import moment from 'moment';
 
 const PlayMovie = (props) => {
 
   const [ movie , setMovie ] = useState({});
   const baseUrl = 'http://localhost:3001';
+  const [comments, setComments] = useState([]);
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
   };
 
+  const addComment = (comment) => {
+    axios
+    .put(
+        `${baseUrl}/comment/${movie._id}`,
+        comment,
+        {headers: {'Content-Type': 'application/json'}}
+      )
+    .then(res => setMovie(res.data))
+    .catch(e => console.log(e));
+  };
+
+  const displayComments = (comment) => {
+    setComments(prevComments => [...prevComments, comment])
+  };
+
   useEffect(() => {
     fetchFromDb(props.match.params.id)
       .then(res => {
-        console.log('res', res)
         setMovie(res.data)
       });
   },[]);
 
   return (
     <div>
-    <MovieTimer runtime={movie.runtime} movie={movie}/>
-    {console.log(movie)}
     {movie.title}
+    <MovieTimer runtime={movie.runtime} movie={movie} addComment={addComment} displayComments={displayComments}/>
+      {comments.map(comment => (
+        <div key={comment._id}>
+          <div>{comment.username}</div>
+          <div>{moment.duration(comment.time).format('h:mm:ss')}</div>
+          <div>{comment.message}</div>
+        </div>
+      ))}
     </div>
     );
 }
