@@ -1,4 +1,4 @@
-const { api_key } = require('../config');
+const { api_key, client_url } = require('../config');
 const axios = require('axios')
 const baseUrl = 'https://api.themoviedb.org/3';
 const { Movie, Comment } = require('../models/movies');
@@ -30,7 +30,6 @@ exports.getMovieDetails = async (ctx) => {
 exports.addMovie = async (ctx) => {
   try {
     const { id } = ctx.params;
-    console.log(id)
     const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
     const movie = new Movie({
       omdb_id: response.data.id,
@@ -107,6 +106,28 @@ exports.addComment = async (ctx) => {
     // returning the array of updated comments
     ctx.body = updated;
     ctx.status = 201;
+  } catch (e) {
+    console.log(e); // eslint-disable-line no-console
+    ctx.status = 500;
+  }
+};
+
+exports.createLink = async (ctx) => {
+  try {
+    const { _id } = ctx.params;
+    const link = `${client_url}${_id}`;
+    await Movie.findOneAndUpdate(
+      {_id},
+      { $set: { share_link: link }},
+      {new: true},
+      (err, doc) => {
+        if (err) console.log(err);
+        else {
+          ctx.body = doc;
+          ctx.status = 201
+        }
+      }
+    );
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;
