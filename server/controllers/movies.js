@@ -40,10 +40,18 @@ exports.addMovie = async (ctx) => {
       comments: [],
       share_link: null
     });
-    await movie.save((err) => {
-      if (err) return handleError(err);
-    });
-    ctx.status = 200;
+    await movie.save()
+      .then(movie => {
+        console.log(movie);
+        //res.json({ success: true, data: movie });
+        ctx.body = movie;
+        ctx.status = 200;
+      })
+      .catch(err => {
+        console.log(err);
+        ctx.status = 500;
+      });
+
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;

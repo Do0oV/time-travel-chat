@@ -8,6 +8,7 @@ router
   .get('/details/:id', ctrl.getMovieDetails)
   .get('/create/:id', ctrl.addMovie)
   .get('/movie/:id', ctrl.findOne)
+  .get('/search/:id', ctrl.findOne)
   .put('/comment/:_id', ctrl.addComment);
 
 module.exports = router;
