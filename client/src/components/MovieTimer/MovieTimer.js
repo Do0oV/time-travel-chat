@@ -13,7 +13,7 @@ const MovieTimer = ({runtime , movie, addComment, displayComments, resetComments
   const [timeEnd] = useState(moment.duration(runtime).asMilliseconds());
   const [current, setCurrent] = useState(59 * 60 * 1000);
   const [input, setInput] = useState(false);
-  const [setCommentTime] = useState(0);
+  const [commentTime, setCommentTime] = useState(0);
   const [user] = useState('user1');
 
   const startPlayer = () => {
