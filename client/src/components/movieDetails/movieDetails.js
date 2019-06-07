@@ -1,7 +1,6 @@
 import React, { useContext , useEffect , useState } from 'react';
 import './movieDetails.css';
 import axios from 'axios';
-
 import { SearchContext } from '../../containers/App';
 
 const MovieDetails = (props) => {
@@ -14,6 +13,7 @@ const MovieDetails = (props) => {
     await axios.get(`${baseUrl}/check/${id}`)
       .then(res => {
         if (res.status === 200) {
+          res.data._id &&
           props.history.push(`/play/${res.data._id}`)
         } else {
           createDocument(id);
@@ -23,8 +23,9 @@ const MovieDetails = (props) => {
 
   const createDocument = async (id) => {
     await axios.get(`${baseUrl}/create/${id}`)
-      .then(newMovie => {
-        props.history.push(`/play/${newMovie._id}`)
+      .then(res => {
+        res &&
+        props.history.push(`/play/${res.data._id}`)
       });
   };
 
@@ -32,7 +33,6 @@ const MovieDetails = (props) => {
     fetchMovieDetails(props.match.params.id)
       .then(res => setMovie(res.data));
   }, []);
-
 
   return (
     <div>

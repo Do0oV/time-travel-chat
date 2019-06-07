@@ -30,6 +30,7 @@ exports.getMovieDetails = async (ctx) => {
 exports.addMovie = async (ctx) => {
   try {
     const { id } = ctx.params;
+    console.log(id)
     const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
     const movie = new Movie({
       omdb_id: response.data.id,
@@ -42,13 +43,11 @@ exports.addMovie = async (ctx) => {
     });
     await movie.save()
       .then(movie => {
-        console.log(movie);
-        //res.json({ success: true, data: movie });
         ctx.body = movie;
         ctx.status = 200;
       })
       .catch(err => {
-        console.log(err);
+        console.log(err);  // eslint-disable-line no-console
         ctx.status = 500;
       });
 
