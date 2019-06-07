@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PlayMovie.css';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
+import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -60,8 +61,10 @@ const PlayMovie = (props) => {
           <div>{moment.duration(comment.time).format('h:mm:ss')}</div>
           <div>{comment.message}</div>
         </div>
-      ))}
+      ))
 
+      }
+      <MovieMessages />
     </div>
     );
 }
