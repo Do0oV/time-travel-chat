@@ -1,6 +1,5 @@
 import React, { useContext , useEffect , useState } from 'react';
 import './movieDetails.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { SearchContext } from '../../containers/App';
@@ -11,10 +10,22 @@ const MovieDetails = (props) => {
   const [ movie , setMovie ] = useState({});
   const baseUrl = 'http://localhost:3001';
 
+  const checkDocument = async (id) => {
+    await axios.get(`${baseUrl}/check/${id}`)
+      .then(res => {
+        if (res.status === 200) {
+          props.history.push(`/play/${res.data._id}`)
+        } else {
+          createDocument(id);
+        }
+      })
+  };
+
   const createDocument = async (id) => {
-    // only if not exists
-    await axios.get(`${baseUrl}/create/${props.match.params.id}`);
-    props.history.push(`/play/${id}`)
+    await axios.get(`${baseUrl}/create/${id}`)
+      .then(newMovie => {
+        props.history.push(`/play/${newMovie._id}`)
+      });
   };
 
   useEffect(() => {
@@ -26,7 +37,7 @@ const MovieDetails = (props) => {
   return (
     <div>
       <div>{movie.title}</div>
-      <div onClick={() => createDocument(movie.id)}>
+      <div onClick={() => checkDocument(movie.id)}>
         PLAY
       </div>
     </div>

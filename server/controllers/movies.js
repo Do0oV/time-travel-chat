@@ -61,14 +61,29 @@ exports.addMovie = async (ctx) => {
 exports.findOne = async (ctx) => {
   try {
     const { id } = ctx.params;
-    const res = await Movie.findOne({omdb_id: id});
+    const res = await Movie.findOne({_id: id});
     if (res) {
       ctx.body = res;
       ctx.status = 200;
     } else {
       ctx.status = 404;
     }
+  } catch (e) {
+    console.log(e); // eslint-disable-line no-console
+    ctx.status = 500;
+  }
+};
 
+exports.searchOne = async (ctx) => {
+  try {
+    const { id } = ctx.params;
+    const res = await Movie.findOne({omdb_id: id});
+    if (res) {
+      ctx.body = res;
+      ctx.status = 200;
+    } else {
+      ctx.status = 201;
+    }
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;
