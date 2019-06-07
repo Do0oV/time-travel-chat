@@ -3,11 +3,9 @@ import './movieTimer.css';
 import TimerMachine from 'react-timer-machine';
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
-
 momentDurationFormatSetup(moment);
 
-
-const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
+const MovieTimer = ({runtime , movie, addComment, displayComments, resetComments }) => {
 
   const [started , setStarted] = useState(false);
   const [paused , setPaused] = useState(false);
@@ -19,15 +17,11 @@ const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
   const [user, setUser] = useState('user1');
 
   const startPlayer = () => {
-    setStarted(true);
+    setStarted(!started);
   };
 
   const pausePlayer = () => {
     setPaused(!paused)
-  };
-
-  const stopPlayer = () => {
-    setStarted(false);
   };
 
   const handleComment = (current) => {
@@ -37,13 +31,16 @@ const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const msg = e.target.msg.value;
-    const newComment = {
-      'username': user,
-      'message': msg,
-      'time': current
-    };
-    addComment(newComment);
+    const msg = e.target.msg.value.trim();
+    if (msg) {
+      const newComment = {
+        'username': user,
+        'message': msg,
+        'time': current
+      };
+      addComment(newComment);
+      e.target.msg.value = '';
+    }
   };
 
   return (
@@ -59,16 +56,16 @@ const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
         moment.duration(ms, "milliseconds").format("h:mm:ss")
       }
       onStart={time =>
-        console.info(`Timer started: ${JSON.stringify(time)}`)
+        resetComments()
       }
       onStop={time =>
         console.info(`Timer stopped: ${JSON.stringify(time)}`)
       }
       onTick={time => {
           setCurrent(() => moment.duration(time).asMilliseconds())
+          movie.comments &&
           movie.comments.map(comment => {
             if (comment.time === current) {
-              // write fonction display message
               return displayComments(comment)
             }
           });
@@ -86,9 +83,8 @@ const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
     />
     <div>
       PLAYER
-      <button onClick={() => startPlayer()}>start</button>
-      <button onClick={() => pausePlayer()}>pause</button>
-      <button onClick={() => stopPlayer()}>stop</button>
+      <button onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
+      <button onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
       <button onClick={() => handleComment({current})}>Add Comment</button>
     </div>
       {input &&
@@ -99,7 +95,6 @@ const MovieTimer = ({runtime , movie, addComment, displayComments }) => {
       }
     </div>
     );
-
 }
 
 export default MovieTimer;

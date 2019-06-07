@@ -9,6 +9,7 @@ const PlayMovie = (props) => {
   const [ movie , setMovie ] = useState({});
   const baseUrl = 'http://localhost:3001';
   const [comments, setComments] = useState([]);
+  const [display, setDisplay] = useState(true);
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
@@ -26,7 +27,17 @@ const PlayMovie = (props) => {
   };
 
   const displayComments = (comment) => {
-    setComments(prevComments => [...prevComments, comment])
+    if (!display) setDisplay(true);
+    setComments(prevComments => [...prevComments, comment]);
+  };
+
+  const resetComments = () => {
+    setDisplay(false);
+    resetStateComments();
+  };
+
+  const resetStateComments = () => {
+    setComments([]);
   };
 
   useEffect(() => {
@@ -39,14 +50,17 @@ const PlayMovie = (props) => {
   return (
     <div>
     {movie.title}
-    <MovieTimer runtime={movie.runtime} movie={movie} addComment={addComment} displayComments={displayComments}/>
-      {comments.map(comment => (
+    <MovieTimer runtime={movie.runtime} movie={movie} addComment={addComment} displayComments={displayComments} resetComments={resetComments}/>
+
+      {display &&
+        comments.map(comment => (
         <div key={comment._id}>
           <div>{comment.username}</div>
           <div>{moment.duration(comment.time).format('h:mm:ss')}</div>
           <div>{comment.message}</div>
         </div>
       ))}
+
     </div>
     );
 }

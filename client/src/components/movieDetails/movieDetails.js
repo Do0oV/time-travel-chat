@@ -12,6 +12,7 @@ const MovieDetails = (props) => {
   const baseUrl = 'http://localhost:3001';
 
   const createDocument = async (id) => {
+    // only if not exists
     await axios.get(`${baseUrl}/create/${props.match.params.id}`);
     props.history.push(`/play/${id}`)
   };
