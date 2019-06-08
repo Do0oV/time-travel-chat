@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Search.css';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
-import Container from 'react-bootstrap/Container';
 import { Row } from 'react-bootstrap';
 
 const Search = (props) => {
