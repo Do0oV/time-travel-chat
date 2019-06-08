@@ -19,6 +19,7 @@ exports.getMovieDetails = async (ctx) => {
   try {
     const { id } = ctx.params;
     const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
+    console.log(response.data)
     ctx.body = response.data;
     ctx.status = 200;
   } catch (e) {
@@ -34,7 +35,7 @@ exports.addMovie = async (ctx) => {
     const movie = new Movie({
       omdb_id: response.data.id,
       imdb_id: response.data.imdb_id,
-      title: response.data.original_title,
+      title: response.data.title,
       poster: response.data.poster_path,
       runtime: response.data.runtime,
       comments: [],
