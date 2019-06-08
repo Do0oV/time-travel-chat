@@ -19,7 +19,6 @@ exports.getMovieDetails = async (ctx) => {
   try {
     const { id } = ctx.params;
     const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
-    console.log(response.data)
     ctx.body = response.data;
     ctx.status = 200;
   } catch (e) {
