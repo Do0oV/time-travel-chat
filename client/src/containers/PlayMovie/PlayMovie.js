@@ -1,31 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import './PlayMovie.css';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import axios from 'axios';
-import moment from 'moment';
+
+export const PlayContext = createContext(null);
 
 const PlayMovie = (props) => {
 
   const [ movie , setMovie ] = useState({});
-  const baseUrl = 'http://localhost:3001';
   const [comments, setComments] = useState([]);
   const [display, setDisplay] = useState(true);
+  const [current, setCurrent] = useState(59 * 60 * 1000);
+  const [user] = useState('user1');
   const { id } = props.match.params;
+  const baseUrl = 'http://localhost:3001';
+
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
   };
 
-  const addComment = (comment) => {
+  const addComment = (msg) => {
+    const newComment = {
+      'username': user,
+      'message': msg,
+      'time': current
+    };
     axios
     .put(
         `${baseUrl}/comment/${movie._id}`,
-        comment,
+        newComment,
         {headers: {'Content-Type': 'application/json'}}
       )
     .then(res => setMovie(res.data))
     .catch(e => console.log(e));
+  };
+
+  const checkComments = () => {
+    movie.comments &&
+      movie.comments.map(comment => comment.time === current && displayComments(comment));
   };
 
   const displayComments = (comment) => {
@@ -50,22 +64,23 @@ const PlayMovie = (props) => {
   },[id]);
 
   return (
-    <div>
-    {movie.title}
-    <MovieTimer runtime={movie.runtime} movie={movie} addComment={addComment} displayComments={displayComments} resetComments={resetComments}/>
-
-      {display &&
-        comments.map(comment => (
-        <div key={comment._id}>
-          <div>{comment.username}</div>
-          <div>{moment.duration(comment.time).format('h:mm:ss')}</div>
-          <div>{comment.message}</div>
-        </div>
-      ))
-
-      }
-      <MovieMessages />
-    </div>
+    <PlayContext.Provider value={{
+      current,
+      setCurrent,
+      checkComments,
+      user,
+      comments,
+      addComment,
+      displayComments,
+      resetComments,
+      display
+    }}>
+      <div>
+        {movie.title}
+        <MovieTimer runtime={movie.runtime} movie={movie} />
+        <MovieMessages />
+      </div>
+    </PlayContext.Provider>
     );
 }
 
