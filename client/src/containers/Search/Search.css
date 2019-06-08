@@ -1,10 +1,9 @@
-.main-container {
-  padding: 20px;
-  height: 100vh;
+.main {
+  height: 99vh;
 }
 
 .search-container {
-  height: 25%;
+  height: 18%;
 }
 
 .searchbar {
@@ -54,8 +53,11 @@
 
 .search-results {
   margin-top: 2%;
-  height: 73%;
-  border: 1px solid green;
+  height: 83%;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
   overflow-y: auto;
 }
 
@@ -63,3 +65,23 @@
   width:0;
   background-color:transparent;
 }
+
+.movie-img {
+  min-width: 18rem;
+  max-width: 350px;
+  margin: 20px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, .25);
+}
+
+.movie-card {
+  position: relative;
+}
+
+.path-fallback {
+  word-break: break-all;
+  align-self: center;
+}
+
+

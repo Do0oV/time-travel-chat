@@ -27,7 +27,7 @@ const Search = (props) => {
   };
 
   return(
-    <Container fluid="true" className="main-container">
+    <div className="main">
       <Row className="justify-content-center align-items-center search-container">
         <div className="searchbar">
           <input className="search_input" type="text" value={query} onChange={(e) => handleInput(e)} placeholder="Search a movie..." />
@@ -37,7 +37,7 @@ const Search = (props) => {
       <Row className="search-results">
         <MovieList movies={movies} />
       </Row>
-    </Container>
+    </div>
     );
 }
 

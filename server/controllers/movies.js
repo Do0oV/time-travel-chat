@@ -6,7 +6,7 @@ const { Movie, Comment } = require('../models/movies');
 exports.searchAPI = async (ctx) => {
   try {
     const { query } = ctx.params;
-    const response = await axios.get(`${baseUrl}/search/movie?api_key=${api_key}&language=en-US&query=${query}&include_adult=false`);
+    const response = await axios.get(`${baseUrl}/search/movie?api_key=${api_key}&language=en-US&query=${query}&include_adult=false&sort_by=popularity.desc`);
     ctx.body = response.data.results;
     ctx.status = 200;
   } catch (e) {
