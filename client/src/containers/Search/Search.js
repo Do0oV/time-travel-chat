@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Search.css';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
+import Container from 'react-bootstrap/Container';
+import { Row } from 'react-bootstrap';
 
 const Search = (props) => {
 
@@ -25,10 +27,17 @@ const Search = (props) => {
   };
 
   return(
-    <div>
-      <input type="text" value={query} onChange={(e) => handleInput(e)} placeholder="search for a movie"/>
-      <MovieList movies={movies} />
-    </div>
+    <Container fluid="true" className="main-container">
+      <Row className="justify-content-center align-items-center search-container">
+        <div className="searchbar">
+          <input className="search_input" type="text" value={query} onChange={(e) => handleInput(e)} placeholder="Search a movie..." />
+          <span className="search_icon"><i className="fas fa-search fa-lg"></i></span>
+        </div>
+      </Row>
+      <Row className="search-results">
+        <MovieList movies={movies} />
+      </Row>
+    </Container>
     );
 }
 

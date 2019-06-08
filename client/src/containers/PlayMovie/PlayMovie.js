@@ -3,7 +3,6 @@ import './PlayMovie.css';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import axios from 'axios';
-
 export const PlayContext = createContext(null);
 
 const PlayMovie = (props) => {

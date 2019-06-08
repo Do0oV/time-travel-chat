@@ -8,13 +8,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 const App = (props) => {
 
   return(
-    <Router>
-    <Switch>
-    <Route path='/movie/:id' component={MovieDetails} />
-    <Route path='/play/:id' component={PlayMovie} />
-    <Route path='/' component={Search} />
-    </Switch>
-    </Router>
+      <Router>
+        <Switch>
+          <Route path='/movie/:id' component={MovieDetails} />
+          <Route path='/play/:id' component={PlayMovie} />
+          <Route path='/' component={Search} />
+        </Switch>
+      </Router>
     );
 }
 
