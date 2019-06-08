@@ -90,6 +90,9 @@
     background-position: -100% 90% !important;
   }
 }
+@media screen and (max-width: 450px) {
+
+}
 @media screen and (max-width: 768px) {
   .movie_card {
     width: 95%;
