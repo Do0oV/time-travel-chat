@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 /*import randomstring from 'randomstring';*/
 import './MovieMessages.css';
 import { PlayContext } from '../../containers/PlayMovie/PlayMovie';
@@ -8,10 +8,16 @@ import { Modal, Button } from 'react-bootstrap';
 
 const MovieMessages = (props) => {
 
-  const [input, setInput] = useState(false);
+  const messagesEndRef = useRef(null);
   const { comments, addComment, display } = useContext(PlayContext);
 /*  const randomUserUrl = 'https://robohash.org/cuutqsyt';*/
   const [showModal, setShowModal] = useState(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(scrollToBottom, [comments]);
 
   const close = () => {
     setShowModal(false);
@@ -21,9 +27,6 @@ const MovieMessages = (props) => {
     setShowModal(true);
   };
 
-  const handleInput = () => {
-    setInput(true);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +35,6 @@ const MovieMessages = (props) => {
     if (msg) {
       addComment(msg);
       e.target.msg.value = '';
-      setInput(false);
     }
   };
 
@@ -76,6 +78,7 @@ const MovieMessages = (props) => {
         </div>
           ))
       }
+      <div ref={messagesEndRef} />
       </div>
     </div>
     );
