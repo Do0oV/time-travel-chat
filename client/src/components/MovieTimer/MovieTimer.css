@@ -1,0 +1,11 @@
+.movie-timer-container {
+  height: 25%;
+  border: 1px solid blue;
+}
+.movie-infos {
+  color: white;
+  font-size: 1.3rem;
+}
+.start-btn, .pause-btn {
+  /*display: none;*/
+}

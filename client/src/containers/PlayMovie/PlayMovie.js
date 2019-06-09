@@ -74,8 +74,7 @@ const PlayMovie = (props) => {
       resetComments,
       display
     }}>
-      <div>
-        {movie.title}
+      <div className="play-movie">
         <MovieTimer runtime={movie.runtime} movie={movie} />
         <MovieMessages />
       </div>

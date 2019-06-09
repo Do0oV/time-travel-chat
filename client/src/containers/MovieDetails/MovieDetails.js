@@ -84,7 +84,7 @@ const MovieDetails = (props) => {
                 <button onClick={()=>sendToDetails(movie.imdb_id)} className="see">read more</button>
                 <span className="helper"></span>
               </div>
-              <div class="btn-container"><span onClick={() => checkDocument(movie.id)} class="btn">Play</span></div>
+              <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
             </div>
             <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl + movie.poster_path})`}}></div>
           </div>
@@ -109,7 +109,7 @@ const MovieDetails = (props) => {
               {movie.overview}
             </p>
           </div>
-          <div class="btn-container"><span onClick={() => checkDocument(movie.id)} class="btn">Play</span></div>
+          <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
         </div>
         <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl + movie.poster_path})`}}></div>
       </div>

@@ -174,7 +174,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.btn {
+.btn-play.btn{
   width: 100px;
   height: 35px;
   line-height: 22px;
@@ -213,7 +213,7 @@
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
 }
-.btn:before {
+.btn-play.btn:before {
   pointer-events: none;
   position: absolute;
   z-index: -1;
@@ -246,7 +246,7 @@
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
 }
-.btn:hover {
+.btn-play.btn:hover {
   background-color: #e16e50;
 }
 @keyframes hover {

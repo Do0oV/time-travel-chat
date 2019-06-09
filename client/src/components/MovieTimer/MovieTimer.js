@@ -23,8 +23,10 @@ const MovieTimer = ({ runtime , movie }) => {
   };
 
   return (
-    <div>
+    <div className="movie-timer-container">
+      <div className="movie-infos">{movie.title}</div>
       <TimerMachine
+        className="movie-timer-clock"
         timeStart={timeStart}
         timeEnd={timeEnd}
         started={started}
@@ -55,10 +57,9 @@ const MovieTimer = ({ runtime , movie }) => {
           console.info(`Timer completed: ${JSON.stringify(time)}`)
         }
       />
-      <div>
-        PLAYER
-        <button onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
-        <button onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
+      <div className="movie-timer-controls">
+        <button className="start-btn" onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
+        <button className="pause-btn" onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
       </div>
     </div>
     );
