@@ -1,7 +1,11 @@
 .movie-timer-container {
+  color: white;
   height: 25%;
   border: 1px solid blue;
   position: relative;
+}
+.movie-timer-clock {
+  color: white;
 }
 .movie-infos {
   color: white;
@@ -10,15 +14,24 @@
 .start-btn, .pause-btn {
   /*display: none;*/
 }
+.progress-wrapper {
+  position: absolute;
+  bottom: -1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 99%;
+  margin: 0 auto;
+}
 .progress-container {
   height: 15px;
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  background-color: black;
+  cursor: pointer;
 }
 .my-progress {
   height: 100%;
+  width: 0%;
   z-index: 2;
-  width: 50%;
   background-color: red;
+  transition: all .5s ease;
 }

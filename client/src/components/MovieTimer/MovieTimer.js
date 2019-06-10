@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './MovieTimer.css';
 import TimerMachine from 'react-timer-machine';
 import moment from "moment";
@@ -8,11 +8,11 @@ momentDurationFormatSetup(moment);
 
 const MovieTimer = ({ runtime , movie }) => {
 
-  const { setCurrent, checkComments, resetComments } = useContext(PlayContext);
+  const { current, setCurrent, checkComments, resetComments } = useContext(PlayContext);
   const [started , setStarted] = useState(false);
   const [paused , setPaused] = useState(false);
-  const [timeStart] = useState(0);
-  const [timeEnd] = useState(moment.duration(runtime).asMilliseconds());
+  const [timeStart, setTimeStart] = useState(0);
+  const timeEnd = 60000 * runtime;
 
   const startPlayer = () => {
     setStarted(!started);
@@ -20,6 +20,31 @@ const MovieTimer = ({ runtime , movie }) => {
 
   const pausePlayer = () => {
     setPaused(!paused);
+  };
+
+  const handlePosition = (now, end) => {
+    const position = now / end;
+    const fullWidth = document.querySelector('.progress-container');
+    const progress = document.querySelector('.my-progress');
+    progress.style.width = Math.floor(position * fullWidth.offsetWidth) + 'px';
+  };
+
+  const handlePositionComplete = () => {
+    document.querySelector('.my-progress').style.width = '100%';
+  };
+  const handlePositionReset = () => {
+    document.querySelector('.my-progress').style.width = '0%';
+  };
+
+  const handleControl = (e) => {
+/*    const fullWidth = document.querySelector('.progress-container');
+    const progress = document.querySelector('.my-progress');
+    console.log(Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth))
+    progress.style.width = e.clientX + 'px';
+    setCurrent(() => {
+      setTimeStart(Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth))
+      return Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth);
+    });*/
   };
 
   return (
@@ -30,7 +55,7 @@ const MovieTimer = ({ runtime , movie }) => {
       <TimerMachine
         className="movie-timer-clock"
         timeStart={timeStart}
-        timeEnd={timeEnd}
+        timeEnd={60000 * runtime}
         started={started}
         paused={paused}
         countdown={false} // use as stopwatch
@@ -42,11 +67,12 @@ const MovieTimer = ({ runtime , movie }) => {
           resetComments()
         }
         onStop={time =>
-          console.info(`Timer stopped: ${JSON.stringify(time)}`)
+          handlePositionReset()
         }
         onTick={time => {
             setCurrent(() => moment.duration(time).asMilliseconds());
             checkComments();
+            handlePosition(moment.duration(time).asMilliseconds(), timeEnd);
           }
         }
         onPause={time =>
@@ -56,15 +82,17 @@ const MovieTimer = ({ runtime , movie }) => {
           console.info(`Timer resumed: ${JSON.stringify(time)}`)
         }
         onComplete={time =>
-          console.info(`Timer completed: ${JSON.stringify(time)}`)
+          handlePositionComplete()
         }
       />
       <div className="movie-timer-controls">
         <button className="start-btn" onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
         <button className="pause-btn" onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
       </div>
-      <div className="progress-container" onClick={(e) => console.log(e)}>
-        <div className="my-progress"></div>
+      <div className="progress-wrapper">
+        <div className="progress-container" onClick={(e) => handleControl(e)}>
+          <div className="my-progress"></div>
+        </div>
       </div>
     </div>
     );
