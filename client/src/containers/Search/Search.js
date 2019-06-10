@@ -8,6 +8,7 @@ const Search = (props) => {
 
   const [ movies , setMovies ] = useState([]);
   const [ query , setQuery ] = useState('');
+  const [ timeOut, setTimeOut ] = useState(0);
   const baseUrl = 'http://localhost:3001';
 
   const searchMovies = async (query) => {
@@ -21,8 +22,9 @@ const Search = (props) => {
 
   const handleInput = (e) => {
     const value = e.target.value;
-    setQuery(value);
-    searchMovies(value.trimStart());
+    setQuery(value)
+    clearTimeout(timeOut);
+    setTimeOut(setTimeout((e)=> searchMovies(value.trimStart()), 800));
   };
 
   return(

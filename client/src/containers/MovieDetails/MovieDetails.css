@@ -247,7 +247,7 @@
   animation-direction: alternate;
 }
 .btn-play.btn:hover {
-  background-color: #e16e50;
+  background-color: #d12b00;
 }
 @keyframes hover {
   50% {

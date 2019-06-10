@@ -45,6 +45,7 @@ const MovieMessages = (props) => {
       >
         <i className="fas fa-plus fa-lg"></i>
       </button>
+      <button className="share-btn">Share Link</button>
       <Modal
         show={showModal}
         onHide={close}
@@ -52,7 +53,7 @@ const MovieMessages = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         >
-        <Modal.Body>
+        <Modal.Body className="modal-body">
           <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group>
               <Form.Label><h4>Write your comment</h4></Form.Label>

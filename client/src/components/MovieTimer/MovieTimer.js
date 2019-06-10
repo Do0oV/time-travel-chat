@@ -24,7 +24,9 @@ const MovieTimer = ({ runtime , movie }) => {
 
   return (
     <div className="movie-timer-container">
-      <div className="movie-infos">{movie.title}</div>
+      <div className="movie-infos">
+      {movie.title}
+      </div>
       <TimerMachine
         className="movie-timer-clock"
         timeStart={timeStart}
@@ -60,6 +62,9 @@ const MovieTimer = ({ runtime , movie }) => {
       <div className="movie-timer-controls">
         <button className="start-btn" onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
         <button className="pause-btn" onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
+      </div>
+      <div className="progress-container" onClick={(e) => console.log(e)}>
+        <div className="my-progress"></div>
       </div>
     </div>
     );
