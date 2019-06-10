@@ -1,18 +1,52 @@
 .movie-timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   color: white;
   height: 25%;
-  border: 1px solid blue;
   position: relative;
+  background-color: #2b2b2b;
+  background-image: url("https://www.transparenttextures.com/patterns/soft-kill.png");
 }
-.movie-timer-clock {
+.movie-timer-clock{
+  align-self: center;
+  font-size: 6vh;
   color: white;
+}
+.minutes {
+  font-size: 2vh;
+  margin-left: 10px;
 }
 .movie-infos {
   color: white;
-  font-size: 1.3rem;
+  font-size: 4vh;
+  text-align: center;
 }
 .start-btn, .pause-btn {
-  /*display: none;*/
+  position: absolute;
+  top: 50%;
+  opacity: 1;
+  width: 60px;
+  height: 60px;
+  color: white;
+  border-radius: 25px;
+  padding: 15px 0px;
+  background-color: #006666;
+  border: none;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, .25);
+}
+.start-btn:hover, .pause-btn:hover {
+  background-color: #008080;
+}
+.start-btn:focus, .pause-btn:focus {
+  outline: none;
+}
+.start-btn {
+  left: 5%;
+  font-weight: bold;
+}
+.pause-btn {
+  right: 5%;
 }
 .progress-wrapper {
   position: absolute;
@@ -34,4 +68,9 @@
   z-index: 2;
   background-color: red;
   transition: all .5s ease;
+}
+@media (min-width: 319px) and (max-width: 480px) {
+ .movie-timer-container  {
+    height: 30%;
+  }
 }

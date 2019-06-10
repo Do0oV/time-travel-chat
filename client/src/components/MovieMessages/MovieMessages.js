@@ -45,7 +45,6 @@ const MovieMessages = (props) => {
       >
         <i className="fas fa-plus fa-lg"></i>
       </button>
-      <button className="share-btn">Share Link</button>
       <Modal
         show={showModal}
         onHide={close}

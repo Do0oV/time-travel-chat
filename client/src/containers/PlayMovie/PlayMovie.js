@@ -15,9 +15,12 @@ const PlayMovie = (props) => {
   const { id } = props.match.params;
   const baseUrl = 'http://localhost:3001';
 
-
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
+  };
+
+  const createLink = async (id) => {
+    await axios.get(`${baseUrl}/link/${id}`);
   };
 
   const addComment = (msg) => {
@@ -60,6 +63,7 @@ const PlayMovie = (props) => {
       .then(res => {
         setMovie(res.data)
       });
+      createLink(id);
   },[id]);
 
   return (
@@ -74,10 +78,18 @@ const PlayMovie = (props) => {
       resetComments,
       display
     }}>
+    {movie.title &&
       <div className="play-movie">
+      <button
+      className="share-btn"
+      onClick={() => {navigator.clipboard.writeText(movie.share_link)}}
+      >
+      <i className="fas fa-share-alt"></i>
+      </button>
         <MovieTimer runtime={movie.runtime} movie={movie} />
         <MovieMessages />
       </div>
+    }
     </PlayContext.Provider>
     );
 }

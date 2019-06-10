@@ -3,3 +3,24 @@
   width: 100%;
   margin: 0 auto;
 }
+
+.share-btn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  bottom: 1%;
+  left: 4%;
+  padding: 12px;
+  border-radius: 25px;
+  color: white;
+  background-color: #006666;
+  border: none;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, .25)
+
+}
+.share-btn:hover {
+  background-color: #008080;
+}
+.share-btn:focus {
+  outline: none;
+}

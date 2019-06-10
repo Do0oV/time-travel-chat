@@ -11,6 +11,7 @@ const MovieTimer = ({ runtime , movie }) => {
   const { current, setCurrent, checkComments, resetComments } = useContext(PlayContext);
   const [started , setStarted] = useState(false);
   const [paused , setPaused] = useState(false);
+  const [helper , seTHelper] = useState(0);
   const [timeStart, setTimeStart] = useState(0);
   const timeEnd = 60000 * runtime;
 
@@ -37,21 +38,29 @@ const MovieTimer = ({ runtime , movie }) => {
   };
 
   const handleControl = (e) => {
-/*    const fullWidth = document.querySelector('.progress-container');
+/*    e.persist()*/
+    console.log(current)
+    const fullWidth = document.querySelector('.progress-container');
     const progress = document.querySelector('.my-progress');
-    console.log(Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth))
-    progress.style.width = e.clientX + 'px';
+    const click = e.clientX;
+    seTHelper(() => {
+      return click;
+    });
+    progress.style.width = click + 'px';
     setCurrent(() => {
-      setTimeStart(Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth))
-      return Math.floor(60000 * runtime * e.clientX / fullWidth.offsetWidth);
-    });*/
+      setTimeStart(Math.floor(60000 * runtime * click / fullWidth.offsetWidth))
+      return Math.floor(60000 * runtime * click / fullWidth.offsetWidth);
+    });
+    console.log(current)
   };
 
   return (
     <div className="movie-timer-container">
       <div className="movie-infos">
       {movie.title}
+      <span className="minutes">{runtime} min</span>
       </div>
+      <div className="movie-timer-clock">
       <TimerMachine
         className="movie-timer-clock"
         timeStart={timeStart}
@@ -85,9 +94,10 @@ const MovieTimer = ({ runtime , movie }) => {
           handlePositionComplete()
         }
       />
+      </div>
       <div className="movie-timer-controls">
-        <button className="start-btn" onClick={() => startPlayer()}>{started ? 'reset' : 'start'}</button>
-        <button className="pause-btn" onClick={() => pausePlayer()}>{paused ? 'resume' : 'pause'}</button>
+        <button className="start-btn" onClick={() => startPlayer()}>{started ? (<i className="fas fa-redo-alt"></i>) : 'GO'}</button>
+        <button className="pause-btn" onClick={() => pausePlayer()}>{paused ? (<i className="fas fa-play"></i>) : (<i className="fas fa-pause"></i>)}</button>
       </div>
       <div className="progress-wrapper">
         <div className="progress-container" onClick={(e) => handleControl(e)}>
