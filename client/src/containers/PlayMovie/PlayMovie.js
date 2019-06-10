@@ -10,7 +10,7 @@ const PlayMovie = (props) => {
   const [ movie , setMovie ] = useState({});
   const [comments, setComments] = useState([]);
   const [display, setDisplay] = useState(true);
-  const [current, setCurrent] = useState(59 * 60 * 1000);
+  const [current, setCurrent] = useState(0);
   const [user] = useState('user1');
   const { id } = props.match.params;
   const baseUrl = 'http://localhost:3001';

@@ -105,11 +105,23 @@ const MovieDetails = (props) => {
             <p className="type">{movie.genres[0].name}</p>
           </div>
           <div className="movie_desc">
+          {movie.overview.length >= 560 &&
+          <span>
             <p className="text">
-              {movie.overview}
+              {parseText(movie.overview, 560)}
             </p>
+            <button onClick={()=>sendToDetails(movie.imdb_id)} className="see">read more</button>
+          </span>
+          }
+          {movie.overview.length < 560 &&
+          <p className="text">
+            {movie.overview}
+          </p>
+          }
+
           </div>
           <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
+          }
         </div>
         <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl + movie.poster_path})`}}></div>
       </div>
