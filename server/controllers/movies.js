@@ -2,6 +2,7 @@ const { api_key, client_url } = require('../config');
 const axios = require('axios')
 const baseUrl = 'https://api.themoviedb.org/3';
 const { Movie, Comment, User } = require('../models/movies');
+const services = require('../services/movies');
 
 exports.searchAPI = async (ctx) => {
   try {
@@ -49,7 +50,6 @@ exports.addMovie = async (ctx) => {
         console.log(err);  // eslint-disable-line no-console
         ctx.status = 500;
       });
-
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;
@@ -92,16 +92,12 @@ exports.addComment = async (ctx) => {
   try {
     const { _id } = ctx.params;
     const { message, time , user } = ctx.request.body;
-    const newComment = new Comment({
+    const newComment = {
       user,
       message,
       time
-    });
-    const updated = await Movie.findOneAndUpdate(
-      {_id},
-      {$push: {comments: newComment}},
-      {new: true}
-      );
+    };
+    const updated =  await services.setComment(_id, newComment)
     // returning the array of updated comments
     ctx.body = updated;
     ctx.status = 201;
@@ -115,18 +111,9 @@ exports.createLink = async (ctx) => {
   try {
     const { _id } = ctx.params;
     const link = `${client_url}${_id}`;
-    await Movie.findOneAndUpdate(
-      {_id},
-      { $set: { share_link: link }},
-      {new: true},
-      (err, doc) => {
-        if (err) console.log(err);
-        else {
-          ctx.body = doc;
-          ctx.status = 201
-        }
-      }
-    );
+    const updated = await services.setLink(_id, link);
+    ctx.body = updated;
+    ctx.status = 201
   } catch (e) {
     console.log(e); // eslint-disable-line no-console
     ctx.status = 500;

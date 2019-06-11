@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     allowNull: false
   }
 });
+
 const commentsSchema = new mongoose.Schema({
   user: {
     type: userSchema,
@@ -61,5 +62,3 @@ const movieSchema = new mongoose.Schema({
 exports.User = mongoose.model('user', userSchema);
 exports.Movie = mongoose.model('movie', movieSchema);
 exports.Comment = mongoose.model('comment', commentsSchema);
-
-//module.exports = mongoose.model('movie', movieSchema);

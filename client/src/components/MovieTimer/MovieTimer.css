@@ -76,3 +76,12 @@
     height: 30%;
   }
 }
+
+@media (min-width: 319px) and (max-width: 480px) {
+  .start-btn, .pause-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+    padding: 15px 0px;
+  }
+}

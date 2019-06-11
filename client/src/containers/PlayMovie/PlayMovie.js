@@ -38,7 +38,6 @@ const PlayMovie = (props) => {
       'message': msg,
       'time': current
     };
-    console.log(newComment)
     axios
     .put(
         `${baseUrl}/comment/${movie._id}`,
