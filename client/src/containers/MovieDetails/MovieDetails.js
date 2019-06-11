@@ -1,6 +1,6 @@
 import React, { useEffect , useState } from 'react';
 import './MovieDetails.css';
-import { baseUrl, posterUrl, imdbUrl } from '../../config';
+import { API_URL, posterUrl, imdbUrl } from '../../config';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -12,7 +12,7 @@ const MovieDetails = (props) => {
 
 
   const checkDocument = async (id) => {
-    await axios.get(`${baseUrl}/check/${id}`)
+    await axios.get(`${API_URL}/check/${id}`)
       .then(res => {
         if (res.status === 200) {
           res.data._id &&
@@ -39,11 +39,11 @@ const MovieDetails = (props) => {
   };
 
   const fetchMovieDetails = async (id) => {
-    return axios.get(`${baseUrl}/details/${id}`);
+    return axios.get(`${API_URL}/details/${id}`);
   };
 
   const createDocument = async (id) => {
-    await axios.get(`${baseUrl}/create/${id}`)
+    await axios.get(`${API_URL}/create/${id}`)
       .then(res => {
         res &&
         props.history.push(`/play/${res.data._id}`);

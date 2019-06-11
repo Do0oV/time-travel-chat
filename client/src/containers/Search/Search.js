@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Search.css';
-import { baseUrl } from '../../config';
+import { API_URL } from '../../config';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
 import { Row } from 'react-bootstrap';
 import logo from '../../assets/logo.svg';
 
 const Search = (props) => {
-
   const [ movies , setMovies ] = useState([]);
   const [ query , setQuery ] = useState('');
   const [ delay, setDelay ] = useState(0);
@@ -15,10 +14,10 @@ const Search = (props) => {
 
   const searchMovies = async (query) => {
     if (query) {
-      const res = await axios.get(`${baseUrl}/search/${query}`);
-      setMovies(() => res.data)
+      const res = await axios.get(`${API_URL}/search/${query}`);
+      setMovies(() => res.data);
     } else {
-      setMovies(() => [])
+      setMovies(() => []);
     }
   };
 

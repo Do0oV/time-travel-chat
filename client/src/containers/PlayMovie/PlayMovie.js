@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import './PlayMovie.css';
-import { baseUrl } from '../../config';
+import { API_URL } from '../../config';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import randomstring from 'randomstring';
@@ -47,11 +47,11 @@ const PlayMovie = (props) => {
   };
 
   const fetchFromDb = (id) => {
-    return axios.get(`${baseUrl}/movie/${id}`);
+    return axios.get(`${API_URL}/movie/${id}`);
   };
 
   const createLink = async (id) => {
-    await axios.get(`${baseUrl}/link/${id}`);
+    await axios.get(`${API_URL}/link/${id}`);
   };
 
   const addComment = (msg) => {
@@ -70,7 +70,7 @@ const PlayMovie = (props) => {
     };
     axios
     .put(
-        `${baseUrl}/comment/${movie._id}`,
+        `${API_URL}/comment/${movie._id}`,
         newComment,
         {headers: {'Content-Type': 'application/json'}}
       )
