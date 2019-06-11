@@ -1,16 +1,15 @@
 import React, { useEffect , useState } from 'react';
 import './MovieDetails.css';
+import { baseUrl, posterUrl, imdbUrl } from '../../config';
 import axios from 'axios';
 import moment from 'moment';
 
 const MovieDetails = (props) => {
 
   const [ movie , setMovie ] = useState({});
-  const baseUrl = 'http://localhost:3001';
-  const posterUrl = 'https://image.tmdb.org/t/p/w500';
-  const imdb_url = 'https://www.imdb.com/title/';
   const [ mobile, setMobile ] = useState(false);
   const { id } = props.match.params;
+
 
   const checkDocument = async (id) => {
     await axios.get(`${baseUrl}/check/${id}`)
@@ -25,7 +24,7 @@ const MovieDetails = (props) => {
   };
 
   const sendToDetails = (id) => {
-    window.open( imdb_url + id , '_blank');
+    window.open( imdbUrl + id , '_blank');
   };
 
   const parseText = function(text, limit){
@@ -57,6 +56,7 @@ const MovieDetails = (props) => {
         setMovie(res.data);
       })
       .then(res => {
+          console.log(posterUrl)
         if (window.innerHeight <= 568) {
           setMobile(true);
         }
@@ -71,7 +71,7 @@ const MovieDetails = (props) => {
           <div className="movie_card item">
             <div className="info_section">
               <div className="movie_header">
-                <img className="small" src={posterUrl + movie.poster_path} alt={movie.title}/>
+                <img className="small" src={posterUrl +'w500' + movie.poster_path} alt={movie.title}/>
                 <h1>{movie.title}</h1>
                 <h4>{moment(movie.release_date).format('YYYY')}</h4>
                 <span className="minutes">{movie.runtime} min</span>
@@ -81,12 +81,12 @@ const MovieDetails = (props) => {
                 <p className="text">
                   {parseText(movie.overview, 160)}
                 </p>
-                <button onClick={()=>sendToDetails(movie.imdb_id)} className="see">read more</button>
+                <button onClick={() => sendToDetails(movie.imdb_id)} className="see">read more</button>
                 <span className="helper"></span>
               </div>
               <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
             </div>
-            <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl + movie.poster_path})`}}></div>
+            <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl +'w500' + movie.poster_path})`}}></div>
           </div>
         }
         </div>
@@ -98,7 +98,7 @@ const MovieDetails = (props) => {
       <div className="movie_card item">
         <div className="info_section">
           <div className="movie_header">
-            <img className="small" src={posterUrl + movie.poster_path} alt={movie.title}/>
+            <img className="small" src={posterUrl +'w500' + movie.poster_path} alt={movie.title}/>
             <h1>{movie.title}</h1>
             <h4>{moment(movie.release_date).format('YYYY')}</h4>
             <span className="minutes">{movie.runtime} min</span>
@@ -110,7 +110,7 @@ const MovieDetails = (props) => {
             <p className="text">
               {parseText(movie.overview, 560)}
             </p>
-            <button onClick={()=>sendToDetails(movie.imdb_id)} className="see">read more</button>
+            <button onClick={() => sendToDetails(movie.imdb_id)} className="see">read more</button>
           </span>
           }
           {movie.overview.length < 560 &&
@@ -123,7 +123,7 @@ const MovieDetails = (props) => {
           <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
           }
         </div>
-        <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl + movie.poster_path})`}}></div>
+        <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl +'w500' + movie.poster_path})`}}></div>
       </div>
     }
 

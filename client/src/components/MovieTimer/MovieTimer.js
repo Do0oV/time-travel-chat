@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import './MovieTimer.css';
 import TimerMachine from 'react-timer-machine';
 import moment from "moment";
@@ -48,8 +48,8 @@ const MovieTimer = ({ runtime , movie }) => {
     });
     progress.style.width = click + 'px';
     setCurrent(() => {
-      setTimeStart(Math.floor(60000 * runtime * click / fullWidth.offsetWidth))
-      return Math.floor(60000 * runtime * click / fullWidth.offsetWidth);
+      setTimeStart(Math.floor(60000 * runtime * helper / fullWidth.offsetWidth))
+      return Math.floor(60000 * runtime * helper / fullWidth.offsetWidth);
     });
     console.log(current)
   };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import './PlayMovie.css';
+import { baseUrl } from '../../config';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import axios from 'axios';
@@ -8,12 +9,11 @@ export const PlayContext = createContext(null);
 const PlayMovie = (props) => {
 
   const [ movie , setMovie ] = useState({});
-  const [comments, setComments] = useState([]);
-  const [display, setDisplay] = useState(true);
-  const [current, setCurrent] = useState(0);
-  const [user] = useState('user1');
+  const [ comments, setComments]  = useState([]);
+  const [ display, setDisplay ] = useState(true);
+  const [ current, setCurrent ] = useState(0);
+  const [ user ] = useState('user1');
   const { id } = props.match.params;
-  const baseUrl = 'http://localhost:3001';
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);

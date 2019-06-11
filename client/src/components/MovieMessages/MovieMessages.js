@@ -13,11 +13,12 @@ const MovieMessages = (props) => {
 /*  const randomUserUrl = 'https://robohash.org/cuutqsyt';*/
   const [showModal, setShowModal] = useState(false);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  }
-
-  useEffect(scrollToBottom, [comments]);
+  useEffect(() => {
+    const scrollToBottom = () => {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+    scrollToBottom();
+  }, [comments]);
 
   const close = () => {
     setShowModal(false);
