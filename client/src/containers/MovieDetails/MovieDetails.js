@@ -56,7 +56,6 @@ const MovieDetails = (props) => {
         setMovie(res.data);
       })
       .then(res => {
-          console.log(posterUrl)
         if (window.innerHeight <= 568) {
           setMobile(true);
         }
@@ -102,7 +101,9 @@ const MovieDetails = (props) => {
             <h1>{movie.title}</h1>
             <h4>{moment(movie.release_date).format('YYYY')}</h4>
             <span className="minutes">{movie.runtime} min</span>
+            {movie.genres.length &&
             <p className="type">{movie.genres[0].name}</p>
+            }
           </div>
           <div className="movie_desc">
           {movie.overview.length >= 560 &&

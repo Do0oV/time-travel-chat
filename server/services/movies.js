@@ -14,7 +14,6 @@ exports.setComment = async (_id, comment) => {
       {$push: {comments: newComment}},
       {new: true}
       );
-    // returning the array of updated comments
     return updated;
   } catch (e) {
     console.log(e); // eslint-disable-line no-console

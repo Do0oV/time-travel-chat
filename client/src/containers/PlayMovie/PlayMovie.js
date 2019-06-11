@@ -5,6 +5,8 @@ import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
 import randomstring from 'randomstring';
 import axios from 'axios';
+import { Modal, Form, Button } from 'react-bootstrap';
+import logo from '../../assets/logo.svg';
 export const PlayContext = createContext(null);
 
 const PlayMovie = (props) => {
@@ -13,8 +15,36 @@ const PlayMovie = (props) => {
   const [ comments, setComments]  = useState([]);
   const [ display, setDisplay ] = useState(true);
   const [ current, setCurrent ] = useState(0);
-  const [ user ] = useState('user1');
+  const [ showModal, setShowModal ] = useState(false);
+  const [ showCopied, setShowCopied ] = useState(false);
+  const [ delay, setDelay ] = useState(0);
+  const [ user ] = useState('fakeUser');
   const { id } = props.match.params;
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(movie.share_link);
+    clearTimeout(delay);
+    setShowCopied(true);
+    setDelay(setTimeout(()=> setShowCopied(false), 2000));
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    closeModal();
+    const msg = e.target.msg.value.trim();
+    if (msg) {
+      addComment(msg);
+      e.target.msg.value = '';
+    }
+  };
 
   const fetchFromDb = (id) => {
     return axios.get(`${baseUrl}/movie/${id}`);
@@ -73,6 +103,11 @@ const PlayMovie = (props) => {
         setMovie(res.data)
       });
       createLink(id);
+      const controller = new AbortController();
+      return () => {
+        // aborting request when cleaning up effect
+        controller.abort();
+      };
   },[id]);
 
   return (
@@ -90,13 +125,42 @@ const PlayMovie = (props) => {
     {movie.title &&
       <div className="play-movie">
       <button
+        className="add-comment-btn btn-circle"
+        onClick={openModal}
+      >
+        <i className="fas fa-plus fa-lg"></i>
+      </button>
+      <Modal
+        show={showModal}
+        onHide={closeModal}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        >
+        <Modal.Body className="modal-body">
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group>
+              <Form.Label><h4>Write your comment</h4></Form.Label>
+              <Form.Control as="textarea" className="comment-input" rows="4" type="text" name="msg" />
+            </Form.Group>
+              <Button variant="secondary" type="submit">
+              Send
+              </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      <button
       className="share-btn"
-      onClick={() => {navigator.clipboard.writeText(movie.share_link)}}
+      onClick={copyLink}
       >
       <i className="fas fa-share-alt"></i>
       </button>
+        <img src={logo} alt="Logo" className="logo-messages"/>
         <MovieTimer runtime={movie.runtime} movie={movie} />
         <MovieMessages />
+        {showCopied &&
+          <div className="succes-copy">Copied!</div>
+        }
       </div>
     }
     </PlayContext.Provider>

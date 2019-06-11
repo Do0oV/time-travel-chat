@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Search.css';
 import { baseUrl } from '../../config';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
 import { Row } from 'react-bootstrap';
+import logo from '../../assets/logo.svg';
 
 const Search = (props) => {
 
   const [ movies , setMovies ] = useState([]);
   const [ query , setQuery ] = useState('');
   const [ delay, setDelay ] = useState(0);
+  const controller = new AbortController();
 
   const searchMovies = async (query) => {
     if (query) {
@@ -24,8 +26,16 @@ const Search = (props) => {
     const value = e.target.value;
     setQuery(value)
     clearTimeout(delay);
-    setDelay(setTimeout((e)=> searchMovies(value.trimStart()), 500));
+    setDelay(setTimeout((e)=> searchMovies(value.trimStart()), 200));
   };
+  useEffect(
+    () => {
+      return () => {
+        // aborting request when cleaning up effect
+        controller.abort();
+      };
+    }
+  );
 
   return(
     <div className="main">
@@ -35,8 +45,11 @@ const Search = (props) => {
           <span className="search_icon"><i className="fas fa-search fa-lg"></i></span>
         </div>
       </Row>
-      <Row className="search-results">
+      <Row className="search-results" >
         <MovieList movies={movies} />
+        {!query.length &&
+        <img src={logo} alt="Logo" className="logo"/>
+        }
       </Row>
     </div>
     );

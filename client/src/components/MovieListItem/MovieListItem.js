@@ -15,7 +15,12 @@ const MovieListItem = ({movie}) => {
       <div className="movie-card">
       {!isBrokenLink &&
         <Link to={`/movie/${movie.id}`}>
-          <img onError={(e)=>addDefaultImg(e)} src={posterUrl + 'w300' + movie.poster_path} className="movie-img" alt={movie.title}/>
+          <img
+          onError={(e)=>addDefaultImg(e)}
+          src={posterUrl + 'w500' + movie.poster_path}
+          className="movie-img"
+          alt={movie.title}
+          />
         </Link>
       }
       </div>

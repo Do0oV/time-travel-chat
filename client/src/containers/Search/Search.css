@@ -5,6 +5,9 @@
 .search-container {
   height: 18%;
 }
+.logo {
+  width: 45vh;
+}
 
 .searchbar {
   font-size: 1.2rem;

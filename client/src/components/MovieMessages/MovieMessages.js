@@ -1,15 +1,12 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import './MovieMessages.css';
 import { PlayContext } from '../../containers/PlayMovie/PlayMovie';
 import moment from 'moment';
-import { Modal, Form, Button } from 'react-bootstrap';
-
 
 const MovieMessages = (props) => {
 
   const messagesEndRef = useRef(null);
-  const { comments, addComment, display } = useContext(PlayContext);
-  const [showModal, setShowModal] = useState(false);
+  const { comments, display } = useContext(PlayContext);
 
   useEffect(() => {
     const scrollToBottom = () => {
@@ -18,53 +15,8 @@ const MovieMessages = (props) => {
     scrollToBottom();
   }, [comments]);
 
-  const close = () => {
-    setShowModal(false);
-  };
-
-  const open = () => {
-    setShowModal(true);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    close();
-    const msg = e.target.msg.value.trim();
-    if (msg) {
-      addComment(msg);
-      e.target.msg.value = '';
-    }
-  };
-
   return (
     <div className="movie-messages-container">
-      <button
-        className="add-comment-btn btn-circle"
-        onClick={open}
-      >
-        <i className="fas fa-plus fa-lg"></i>
-      </button>
-      <Modal
-        show={showModal}
-        onHide={close}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        >
-        <Modal.Body className="modal-body">
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Group>
-              <Form.Label><h4>Write your comment</h4></Form.Label>
-              <Form.Control as="textarea" className="comment-input" rows="4" type="text" name="msg" />
-            </Form.Group>
-            <Modal.Footer>
-              <Button variant="secondary" type="submit">
-              Send
-              </Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
       <div className="margin">
       {display &&
         comments.map(comment => (
