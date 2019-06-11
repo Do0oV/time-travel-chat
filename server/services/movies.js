@@ -1,4 +1,3 @@
-const { api_key, client_url } = require('../config');
 const { Movie, Comment } = require('../models/movies');
 
 exports.setComment = async (_id, comment) => {

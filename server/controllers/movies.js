@@ -1,13 +1,13 @@
-const { api_key, client_url } = require('../config');
+require('dotenv').config();
+const { API_KEY, BASE_URL, CLIENT_URL} = process.env;
 const axios = require('axios')
-const baseUrl = 'https://api.themoviedb.org/3';
 const { Movie, Comment, User } = require('../models/movies');
 const services = require('../services/movies');
 
 exports.searchAPI = async (ctx) => {
   try {
     const { query } = ctx.params;
-    const response = await axios.get(`${baseUrl}/search/movie?api_key=${api_key}&language=en-US&query=${query}&include_adult=false&sort_by=popularity.desc`);
+    const response = await axios.get(`${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&include_adult=false&sort_by=popularity.desc`);
     ctx.body = response.data.results;
     ctx.status = 200;
   } catch (e) {
@@ -19,7 +19,7 @@ exports.searchAPI = async (ctx) => {
 exports.getMovieDetails = async (ctx) => {
   try {
     const { id } = ctx.params;
-    const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
+    const response = await axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`);
     ctx.body = response.data;
     ctx.status = 200;
   } catch (e) {
@@ -31,7 +31,7 @@ exports.getMovieDetails = async (ctx) => {
 exports.addMovie = async (ctx) => {
   try {
     const { id } = ctx.params;
-    const response = await axios.get(`${baseUrl}/movie/${id}?api_key=${api_key}&language=en-US`);
+    const response = await axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`);
     const movie = new Movie({
       omdb_id: response.data.id,
       imdb_id: response.data.imdb_id,
@@ -110,7 +110,7 @@ exports.addComment = async (ctx) => {
 exports.createLink = async (ctx) => {
   try {
     const { _id } = ctx.params;
-    const link = `${client_url}${_id}`;
+    const link = `${CLIENT_URL}${_id}`;
     const updated = await services.setLink(_id, link);
     ctx.body = updated;
     ctx.status = 201

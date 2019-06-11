@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/db_time_travel_chat', { useNewUrlParser: true }, (err) => {
+const { DB_USER , DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
+mongoose.connect(`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, { useNewUrlParser: true,
+  auth: {authdb:"admin"} }, (err) => {
   if (err) return console.log(err); // eslint-disable-line no-console
   console.log('Connected to the database'); // eslint-disable-line no-console
 });

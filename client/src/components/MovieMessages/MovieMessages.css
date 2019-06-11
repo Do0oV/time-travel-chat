@@ -1,4 +1,5 @@
 .movie-messages-container {
+  margin-top: 2%;
   height: 72%;
   overflow-y: auto;
   position: relative;
