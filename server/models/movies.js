@@ -1,8 +1,18 @@
 const mongoose = require('../db');
 
-const commentsSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
+    allowNull: false
+  },
+  avatar: {
+    type: String,
+    allowNull: false
+  }
+});
+const commentsSchema = new mongoose.Schema({
+  user: {
+    type: userSchema,
     allowNull: false
   },
   message: {
@@ -48,6 +58,7 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
+exports.User = mongoose.model('user', userSchema);
 exports.Movie = mongoose.model('movie', movieSchema);
 exports.Comment = mongoose.model('comment', commentsSchema);
 

@@ -1,7 +1,7 @@
 const { api_key, client_url } = require('../config');
 const axios = require('axios')
 const baseUrl = 'https://api.themoviedb.org/3';
-const { Movie, Comment } = require('../models/movies');
+const { Movie, Comment, User } = require('../models/movies');
 
 exports.searchAPI = async (ctx) => {
   try {
@@ -91,10 +91,9 @@ exports.searchOne = async (ctx) => {
 exports.addComment = async (ctx) => {
   try {
     const { _id } = ctx.params;
-    const { message, time } = ctx.request.body;
-    const username = 'user1';
+    const { message, time , user } = ctx.request.body;
     const newComment = new Comment({
-      username,
+      user,
       message,
       time
     });

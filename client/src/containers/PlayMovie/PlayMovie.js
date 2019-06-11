@@ -3,6 +3,7 @@ import './PlayMovie.css';
 import { baseUrl } from '../../config';
 import MovieTimer from '../../components/MovieTimer/MovieTimer';
 import MovieMessages from '../../components/MovieMessages/MovieMessages';
+import randomstring from 'randomstring';
 import axios from 'axios';
 export const PlayContext = createContext(null);
 
@@ -24,11 +25,20 @@ const PlayMovie = (props) => {
   };
 
   const addComment = (msg) => {
+    const randomStr = randomstring.generate({
+      length: 12,
+      charset: 'alphabetic'
+    });
+    const randomUserAvatar = 'https://robohash.org/' + randomStr;
     const newComment = {
-      'username': user,
+      'user': {
+          username: randomStr,
+          avatar: randomUserAvatar
+        },
       'message': msg,
       'time': current
     };
+    console.log(newComment)
     axios
     .put(
         `${baseUrl}/comment/${movie._id}`,

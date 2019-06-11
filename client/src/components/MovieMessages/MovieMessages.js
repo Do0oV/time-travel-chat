@@ -1,5 +1,4 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-/*import randomstring from 'randomstring';*/
 import './MovieMessages.css';
 import { PlayContext } from '../../containers/PlayMovie/PlayMovie';
 import moment from 'moment';
@@ -10,7 +9,6 @@ const MovieMessages = (props) => {
 
   const messagesEndRef = useRef(null);
   const { comments, addComment, display } = useContext(PlayContext);
-/*  const randomUserUrl = 'https://robohash.org/cuutqsyt';*/
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -72,7 +70,7 @@ const MovieMessages = (props) => {
         comments.map(comment => (
         <div key={comment._id} className="my-3 p-3 bg-white rounded box-shadow">
           <div className="media text-muted pt-3">
-            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" className="mr-2 rounded" width="60" height="60" />
+            <img src={comment.user.avatar} alt="avatar" className="mr-2 rounded" width="60" height="60" />
             <p className="media-body pl-3 pb-3 mb-0 small lh-125">
               <strong className="d-block text-gray-dark">
                 @_ {moment(moment.duration(comment.time)._data).format("HH:mm:ss")}

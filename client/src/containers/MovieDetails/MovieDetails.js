@@ -118,7 +118,6 @@ const MovieDetails = (props) => {
             {movie.overview}
           </p>
           }
-
           </div>
           <div className="btn-container"><span onClick={() => checkDocument(movie.id)} className="btn btn-play">Play</span></div>
           }
@@ -126,7 +125,6 @@ const MovieDetails = (props) => {
         <div className="blur_back poster_back" style={{backgroundImage: `url(${posterUrl +'w500' + movie.poster_path})`}}></div>
       </div>
     }
-
     </div>
   );
 };

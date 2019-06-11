@@ -20,7 +20,9 @@
   width: 90%;
   margin: 0 auto;
 }
-
+.text-muted {
+  word-break: break-all;
+}
 .add-comment-btn {
   position: absolute;
   bottom: 1%;
