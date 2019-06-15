@@ -17,6 +17,7 @@ const MovieTimer = ({ runtime , movie }) => {
 
   const startPlayer = () => {
     setStarted(!started);
+    if (!started) setPaused(false);
   };
 
   const pausePlayer = () => {
