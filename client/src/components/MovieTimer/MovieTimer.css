@@ -21,6 +21,7 @@
   color: white;
   font-size: 4vh;
   text-align: center;
+  text-transform: uppercase;
 }
 .start-btn, .pause-btn {
   position: absolute;

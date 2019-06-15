@@ -44,7 +44,11 @@ const Search = (props) => {
           <span className="search_icon"><i className="fas fa-search fa-lg"></i></span>
         </div>
       </Row>
+
       <Row className="search-results" >
+      {!query.length &&
+      <div className="explain">Select a movie, start the timer, receive and send comments in sync with the timeline.</div>
+      }
         <MovieList movies={movies} />
         {!query.length &&
         <img src={logo} alt="Logo" className="logo"/>

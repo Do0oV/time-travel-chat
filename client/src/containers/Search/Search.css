@@ -1,7 +1,14 @@
 .main {
-  height: 99vh;
+  height: 90vh;
 }
-
+.explain {
+  text-align: center;
+  font-size: 3vh;
+  width: 90%;
+  color: darkgrey;
+  font-family: 'Indie Flower', cursive;
+  font-style: italic;
+}
 .search-container {
   height: 18%;
 }
