@@ -1,8 +1,9 @@
 import React, { useEffect , useState } from 'react';
 import './MovieDetails.css';
-import { API_URL, posterUrl, imdbUrl } from '../../config';
+import { posterUrl, imdbUrl } from '../../config';
 import axios from 'axios';
 import moment from 'moment';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const MovieDetails = (props) => {
 
@@ -10,7 +11,7 @@ const MovieDetails = (props) => {
   const [ mobile, setMobile ] = useState(false);
   const { id } = props.match.params;
 
-
+  // check if the movie has already been created in DB
   const checkDocument = async (id) => {
     await axios.get(`${API_URL}/check/${id}`)
       .then(res => {
@@ -27,6 +28,7 @@ const MovieDetails = (props) => {
     window.open( imdbUrl + id , '_blank');
   };
 
+  // if movie description is too long display
   const parseText = function(text, limit){
     if (text.length > limit){
       for (let i = limit; i > 0; i--){
