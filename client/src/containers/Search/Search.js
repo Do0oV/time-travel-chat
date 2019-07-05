@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Search.css';
-import { API_URL } from '../../config';
 import axios from 'axios';
 import MovieList from '../../components/MovieList/MovieList';
 import { Row } from 'react-bootstrap';
 import logo from '../../assets/logo.svg';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Search = (props) => {
   const [ movies , setMovies ] = useState([]);

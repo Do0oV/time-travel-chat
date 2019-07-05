@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const MovieListItem = ({movie}) => {
 
+  // Do not display movie if poster link is broken
   const [isBrokenLink , setIsBrokenLink] = useState(false);
 
   const addDefaultImg = (e) => {

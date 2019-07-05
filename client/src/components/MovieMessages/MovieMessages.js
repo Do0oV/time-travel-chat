@@ -18,7 +18,7 @@ const MovieMessages = (props) => {
   return (
     <div className="movie-messages-container">
       <div className="margin">
-      {display &&
+        {display &&
         comments.map(comment => (
         <div key={comment._id} className="my-3 p-3 bg-white rounded box-shadow">
           <div className="media text-muted pt-3">
@@ -32,8 +32,8 @@ const MovieMessages = (props) => {
           </div>
         </div>
           ))
-      }
-      <div ref={messagesEndRef} />
+        }
+        <div ref={messagesEndRef} />
       </div>
     </div>
     );
