@@ -13,8 +13,8 @@ const errorHandler = require('./errorHandler');
 app
   .use(cors())
   .use(bodyparser())
-  .use(router.routes())
   .use(errorHandler)
+  .use(router.routes())
   .use(router.allowedMethods());
 
 app.listen(PORT, (err) => {
