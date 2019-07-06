@@ -59,10 +59,12 @@ Create a __.env__ file - following the __.env.example__
 
 FRONT-END:
 ```
+cd client
 npm start
 ```
 BACK-END:
 ```
+cd server
 nodemon index.js
 ```
 
