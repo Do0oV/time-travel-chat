@@ -9,13 +9,11 @@ If you are busy or currently living far from your friends or family but still wa
 
 Watch the movie when you want, write comments, then share the link. People will see your messages appearing at the right moment on their screen!
 
-
-## Screenshots
-
 <p align="center">
-  <img src="" />
+  <img width="270" height="437" src="https://northern-lights.fr/images/time-travel-chat-search.png">
+  <img width="270" height="437" src="https://northern-lights.fr/images/time-travel-chat-details.png">
+  <img width="270" height="437" src="https://northern-lights.fr/images/time-travel-chat-msgs.png">
 </p>
-
 
 ## Getting started
 
