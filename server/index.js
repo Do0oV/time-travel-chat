@@ -8,9 +8,12 @@ const app = new Koa();
 require('dotenv').config();
 const { PORT } = process.env;
 
+const errorHandler = require('./errorHandler');
+
 app
   .use(cors())
   .use(bodyparser())
+  .use(errorHandler)
   .use(router.routes())
   .use(router.allowedMethods());
 
